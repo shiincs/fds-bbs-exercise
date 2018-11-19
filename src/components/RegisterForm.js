@@ -3,10 +3,15 @@ import api from '../api'
 
 export default class RegisterForm extends Component {
 
+  state = {
+    // 현재 입력 필드에 입력된 사용자 이름&암호
+    username: '',
+    password: ''
+  }
+
   handleSubmit = async e => {
     e.preventDefault()
-    const username = e.target.elements.username.value
-    const password = e.target.elements.password.value
+    const { username, password } = this.state
 
     // FIXME: 사용자 이름 중복체크 해야함
     const {data: users} = await api.get(`/users`, {
@@ -30,17 +35,31 @@ export default class RegisterForm extends Component {
 
   }
 
+  // 메소드 하나로 여러개의 필드를 동시에 Update 할 수 있다.
+  handleFieldChange = (e, name) => {
+    this.setState({
+      // name 변수에 저장되어 있는 문자열을
+      // 그대로 속성 이름으로 사용
+      [name]: e.target.value
+    })
+  }
+
   render() {
+    const { username, password } = this.state
     return (
       <form onSubmit = {e => this.handleSubmit(e)}>
         <h1>회원가입</h1>
         <input
           type="text"
           name="username"
+          value={username}
+          onChange = { e => this.handleFieldChange(e, 'username')}
         />
         <input
           type="password"
           name="password"
+          value={password}
+          onChange = { e => this.handleFieldChange(e, 'password')}
         />
         <button>회원가입</button>
       </form>
