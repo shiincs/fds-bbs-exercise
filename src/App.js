@@ -1,25 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
+import Home from './components/Home'
 
 class App extends Component {
+  // page === 'login' --> 로그인 페이지
+  // page === 'register' --> 회원가입 페이지
+  state = {
+    page: 'login'
+  }
+
+  handleRegisterPage = () => {
+    this.setState({
+      page: 'register'
+    })
+  }
+
+  handleLogin = () => {
+    this.setState({
+      page: 'home'
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {
+          this.state.page === 'login' ? (
+            <LoginForm onRegister={() => this.handleRegisterPage()} onLogin = {() => this.handleLogin()} />
+          ) : this.state.page === 'register' ? (
+            <RegisterForm />
+          ) : this.state.page === 'home' ? (
+            <Home />
+          ) : null
+        }
       </div>
     );
   }
