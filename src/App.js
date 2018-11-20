@@ -11,6 +11,7 @@ class App extends Component {
   // page === 'register' --> 회원가입 페이지
   // page === 'post-list' --> 게시물 목록 페이지
   // page === 'post-detail' --> 게시물 세부 페이지
+  // page === 'new-post' --> 새 글 쓰기 페이지
   state = {
     page: 'post-list',
     // 현재 보고 있는 게시물의 ID
@@ -55,7 +56,7 @@ class App extends Component {
           ) : this.state.page === 'post-detail' ? (
             <PostDetail postId = {this.state.postId} />
           ) : this.state.page === 'new-post' ? (
-            <NewPost />
+            <NewPost onPostDetailPage= {(postId) => this.handlePostDetailPage(postId)} />
           ) : null
         }
       </div>
