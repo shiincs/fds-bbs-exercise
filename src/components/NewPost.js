@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import api from '../api';
+import PostForm from './PostForm'
 
 export default class NewPost extends Component {
   state = {
     title: '',
     body: ''
   }
-  
+
   handleFieldChange = (e, name) => {
     this.setState({
       [name]: e.target.value
@@ -26,31 +27,10 @@ export default class NewPost extends Component {
     // TODO: 생성된 게시물 보여주기
     this.props.onPostDetailPage(res.data.id)
   }
+  
   render() {
     return (
-      <div>
-        <h1>새 글 쓰기</h1>
-        <form onSubmit = {(e) => this.handleSubmit(e)}>
-          <label htmlFor="">제목
-            <input 
-              type="text"
-              name="title"
-              value={this.state.title}
-              onChange = {(e) => this.handleFieldChange(e, 'title')}
-            />
-          </label>
-          <label htmlFor="">내용
-            <textarea 
-              name="body" 
-              cols="30" 
-              rows="30" 
-              value={this.state.body}
-              onChange = {(e) => this.handleFieldChange(e, 'body')}
-            ></textarea>
-          </label>
-          <button>작성</button>
-        </form>
-      </div>
+      <PostForm onSubmit = {e => this.handleSubmit(e)} onFieldChange = {(e, name) => this.handleFieldChange(e, name)} />
     )
   }
 }
