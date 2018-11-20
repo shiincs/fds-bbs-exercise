@@ -43,7 +43,12 @@ export default class EditPostForm extends Component {
       return 'loading...'
     }
     return (
-      <PostForm title = {title} body = {body} onSubmit = {e => this.handleSubmit(e)} onFieldChange = {(e, name) => this.handleFieldChange(e, name)} />
+      <PostForm 
+        title = {title} 
+        body = {body} 
+        onSubmit = {e => this.handleSubmit(e)} 
+        onFieldChange = {(e, name) => this.handleFieldChange(e, name)} 
+      />
     )
   }
 }

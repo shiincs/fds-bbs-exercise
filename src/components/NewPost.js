@@ -27,10 +27,13 @@ export default class NewPost extends Component {
     // TODO: 생성된 게시물 보여주기
     this.props.onPostDetailPage(res.data.id)
   }
-  
+
   render() {
     return (
-      <PostForm onSubmit = {e => this.handleSubmit(e)} onFieldChange = {(e, name) => this.handleFieldChange(e, name)} />
+      <PostForm 
+        onSubmit = {e => this.handleSubmit(e)} 
+        onFieldChange = {(e, name) => this.handleFieldChange(e, name)} 
+      />
     )
   }
 }
