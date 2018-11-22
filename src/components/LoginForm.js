@@ -8,6 +8,11 @@ class LoginForm extends Component {
     this.passwordRef = React.createRef()
   }
 
+  // handleSubmit 함수에서 이벤트객체를 인자로 받아서 하는 일은
+  // 이 이벤트가 form 요소에서 발생한 것이라는 것을 전제로 한다.
+  // 그렇기 때문에 이 함수에서 하는 일을 UserContext의 Login 함수 내부에서 할 수도 있지만,
+  // 굳이 이렇게 따로 빼서 구분해 놓는 것이다.
+  // 즉 이 handleSubmit 함수는 login 함수를 동작시키는 근간이 되는 원리라고 볼 수 있다.
   handleSubmit = (e) => {
     e.preventDefault()
     const username = e.target.elements.username.value
