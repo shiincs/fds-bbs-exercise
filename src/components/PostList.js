@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import api from '../api';
 import Layout from './Layout';
-import {UserConsumer} from '../contexts/UserContext';
 
 export default class PostList extends Component {
   state = {
@@ -17,7 +16,7 @@ export default class PostList extends Component {
   }
 
   render() {
-    const { posts, loading } = this.state
+    const { posts } = this.state
     const { onPostDetailPage, onNewPost, onLoginFormPage } = this.props
 
     return (

@@ -27,7 +27,7 @@ export default class EditPostForm extends Component {
     const title = e.target.elements.title.value
     const body = e.target.elements.body.value
 
-    const res = await api.patch(`/posts/${this.props.postId}`, {
+    await api.patch(`/posts/${this.props.postId}`, {
       title,
       body
     })

@@ -16,7 +16,8 @@ class LoginForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const username = e.target.elements.username.value
-    const password = e.target.elements.password.value
+    const password = e.target.elements.password.value;
+    
     this.props.login(username, password)
   }
 

@@ -31,7 +31,7 @@ export default class PostDetail extends Component {
         <p>{body}</p>
         <UserConsumer>
           {({id}) => {
-            if(this.state.userId === id) {
+            if(userId === id) {
               return (<button onClick = {() => onEditPostFormPage(postId)}>수정</button>)
             }
           }}
