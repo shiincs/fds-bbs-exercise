@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import LoginForm from './components/LoginForm'
-import RegisterForm from './components/RegisterForm'
-import PostList from './components/PostList'
-import PostDetail from './components/PostDetail'
-import NewPost from './components/NewPost'
-import EditPostForm from './components/EditPostForm'
+import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
+import PostList from './components/PostList';
+import PostDetail from './components/PostDetail';
+import NewPost from './components/NewPost';
+import EditPostForm from './components/EditPostForm';
+import {UserProvider} from './contexts/UserContext';
 
 class App extends Component {
   // page === 'login' --> 로그인 페이지
@@ -54,23 +55,28 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        {
-          this.state.page === 'login' ? (
-            <LoginForm onRegister={() => this.handleRegisterPage()} onLogin = {() => this.handleLogin()} />
-          ) : this.state.page === 'register' ? (
-            <RegisterForm />
-          ) : this.state.page === 'post-list' ? (
-            <PostList onPostDetailPage= {(postId) => this.handlePostDetailPage(postId)} onNewPost = {() => this.handleNewPost()} />
-          ) : this.state.page === 'post-detail' ? (
-            <PostDetail postId = {this.state.postId} onEditPostFormPage = {(postId) => this.handleEditPostFormPage(postId)}/>
-          ) : this.state.page === 'new-post' ? (
-            <NewPost onPostDetailPage= {(postId) => this.handlePostDetailPage(postId)} />
-          ) : this.state.page === 'edit-post-form' ? (
-            <EditPostForm postId = {this.state.postId} onPostDetailPage= {(postId) => this.handlePostDetailPage(postId)} />
-          ) : null
-        }
-      </div>
+      <UserProvider>
+        <div className="App">
+          {
+            this.state.page === 'login' ? (
+              <LoginForm onRegister={() => this.handleRegisterPage()} onLogin={() => this.handleLogin()} />
+            ) : this.state.page === 'register' ? (
+              <RegisterForm />
+            ) : this.state.page === 'post-list' ? (
+              <PostList 
+                onPostDetailPage={(postId) => this.handlePostDetailPage(postId)} 
+                onNewPost={() => this.handleNewPost()} 
+              />
+            ) : this.state.page === 'post-detail' ? (
+              <PostDetail postId={this.state.postId} onEditPostFormPage={(postId) => this.handleEditPostFormPage(postId)} />
+            ) : this.state.page === 'new-post' ? (
+              <NewPost onPostDetailPage={(postId) => this.handlePostDetailPage(postId)} />
+            ) : this.state.page === 'edit-post-form' ? (
+              <EditPostForm postId={this.state.postId} onPostDetailPage={(postId) => this.handlePostDetailPage(postId)} />
+            ) : null
+          }
+        </div>
+      </UserProvider>
     );
   }
 }
