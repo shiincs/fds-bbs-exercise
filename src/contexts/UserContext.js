@@ -21,6 +21,9 @@ export default class UserProvider extends Component {
     localStorage.setItem('token', res.data.token)
 
     await this.refreshUser()
+    
+    // 로그인 폼 보여주기
+    this.props.onPostListPage()
   }
 
   logout = () => {
@@ -31,7 +34,6 @@ export default class UserProvider extends Component {
       id: null,
       username: null
     })
-    // TODO: 로그인 폼 보여주기
   }
 
   refreshUser = async() => {

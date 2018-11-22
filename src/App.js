@@ -33,6 +33,12 @@ class App extends Component {
     })
   }
 
+  handlePostListPage = () => {
+    this.setState({
+      page: 'post-list'
+    })
+  }
+
   handlePostDetailPage = (postId) => {
     this.setState({
       page: 'post-detail',
@@ -53,9 +59,15 @@ class App extends Component {
     })
   }
 
+  handleLoginFormPage = () => {
+    this.setState({
+      page: 'login'
+    })
+  }
+
   render() {
     return (
-      <UserProvider>
+      <UserProvider onPostListPage = {this.handlePostListPage}>
         <div className="App">
           {
             this.state.page === 'login' ? (
@@ -66,6 +78,7 @@ class App extends Component {
               <PostList 
                 onPostDetailPage={(postId) => this.handlePostDetailPage(postId)} 
                 onNewPost={() => this.handleNewPost()} 
+                onLoginFormPage = {() => this.handleLoginFormPage()}
               />
             ) : this.state.page === 'post-detail' ? (
               <PostDetail postId={this.state.postId} onEditPostFormPage={(postId) => this.handleEditPostFormPage(postId)} />

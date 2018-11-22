@@ -18,10 +18,10 @@ export default class PostList extends Component {
 
   render() {
     const { posts, loading } = this.state
-    const { onPostDetailPage, onNewPost } = this.props
+    const { onPostDetailPage, onNewPost, onLoginFormPage } = this.props
 
     return (
-      <Layout title="게시물 목록">
+      <Layout title="게시물 목록" onLoginFormPage = {onLoginFormPage}>
         <h1>게시물 목록</h1>
         <ul>
           {
