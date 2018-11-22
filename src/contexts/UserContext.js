@@ -23,6 +23,17 @@ export default class UserProvider extends Component {
     await this.refreshUser()
   }
 
+  logout = () => {
+    // 로컬 스토리지에서 토큰 제거
+    localStorage.removeItem('token')
+    // 사용자 정보 캐시 초기화
+    this.setState({
+      id: null,
+      username: null
+    })
+    // TODO: 로그인 폼 보여주기
+  }
+
   refreshUser = async() => {
     const res2 = await api.get('/me')
     this.setState({
@@ -30,11 +41,13 @@ export default class UserProvider extends Component {
       username: res2.data.username
     })
   }
+
   render() {
     const value = {
       username: this.state.username,
       id: this.state.id,
-      login: this.login.bind(this)
+      login: this.login.bind(this),
+      logout: this.logout.bind(this)
     }
     return (
       <Provider value={value}>{this.props.children}</Provider>
