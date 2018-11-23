@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {UserConsumer} from '../contexts/UserContext'
+import {UserConsumer, withUser} from '../contexts/UserContext'
 
 class LoginForm extends Component {
   constructor(props) {
@@ -54,10 +54,16 @@ class LoginForm extends Component {
 
 // 함수형 컴포넌트(props를 받아서 element를 반환한다.)
 // 사용법은 LoginForm과 같다.
-export default props => {
-  return (
-    <UserConsumer>
-      {({login}) => <LoginForm {...props} login = {login} />}
-    </UserConsumer>
-  )
-}
+// 여기에서 인수로 받는 props는 상위 component인 app component에서
+// LoginForm component를 호출할 때 넘겨준 props를 의미한다.
+/* 
+  export default props => {
+    return (
+      <UserConsumer>
+        {({login}) => <LoginForm {...props} login = {login} />}
+      </UserConsumer>
+    )
+  }
+*/
+
+export default withUser(LoginForm)

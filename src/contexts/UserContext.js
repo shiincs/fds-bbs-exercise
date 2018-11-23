@@ -26,15 +26,8 @@ export default class UserProvider extends Component {
       logout: this.logout
     }
   }
-  
-  state = {
-    id: null,
-    username: null,
-    login: this.login.bind(this),
-    logout: this.logout.bind(this)
-  }
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     localStorage.getItem('token') && await this.refreshUser()
   }
 
@@ -42,7 +35,7 @@ export default class UserProvider extends Component {
   // 이 인자들이 form에서 생성됐는지, div에서 그냥 input에 때려 박았는지에 대해서
   // 이 함수에서는 알 필요가 없고, 그냥 인자를 받아서 로그인을 수행하는 기능만 잘 동작하면 된다.
   // 이처럼 내부의 원리와 실제 동작하는 부분을 구분하는 것을 '추상화' 라고 한다.
-  async login(username, password) {
+  login = async (username, password) => {
     const res = await api.post('/users/login', {
       username,
       password
@@ -55,7 +48,7 @@ export default class UserProvider extends Component {
     this.props.onPostListPage()
   }
 
-  logout() {
+  logout = () => {
     // 로컬 스토리지에서 토큰 제거
     localStorage.removeItem('token')
     // 사용자 정보 캐시 초기화
@@ -68,7 +61,7 @@ export default class UserProvider extends Component {
     // this.props.onPostListPage()
   }
 
-  async refreshUser() {
+  refreshUser = async () => {
     const res2 = await api.get('/me')
     this.setState({
       id: res2.data.id,
@@ -76,28 +69,26 @@ export default class UserProvider extends Component {
     })
   }
 
-  // state = {
-  //   id: null,
-  //   username: null,
-  //   login: this.login,
-  //   logout: this.logout
-  // }
-
   render() {
-    // const value = {
-    //   username: this.state.username,
-    //   id: this.state.id,
-    //   login: this.login.bind(this),
-    //   logout: this.logout.bind(this)
-    // }
-    console.log(this.login)
     return (
       <Provider value={this.state}>{this.props.children}</Provider>
     )
   }
 }
 
+// HOC
+function withUser(WrappedComponent) {
+  return function (props) {
+    return (
+      <Consumer>
+        {value => <WrappedComponent {...value} {...props} />}
+      </Consumer>
+    )  
+  }
+}
+
 export {
   UserProvider,
-  Consumer as UserConsumer
+  Consumer as UserConsumer,
+  withUser
 }
