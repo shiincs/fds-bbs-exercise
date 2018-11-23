@@ -76,15 +76,21 @@ export default class UserProvider extends Component {
   }
 }
 
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
 // HOC
 function withUser(WrappedComponent) {
-  return function (props) {
+  function WithUser(props) {
     return (
       <Consumer>
         {value => <WrappedComponent {...value} {...props} />}
       </Consumer>
     )  
   }
+  WithUser.displayName = `withUser(${getDisplayName(WrappedComponent)})`
+  return WithUser
 }
 
 export {
