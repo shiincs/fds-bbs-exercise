@@ -27,12 +27,6 @@ class App extends Component {
     })
   }
 
-  handleLogin = () => {
-    this.setState({
-      page: 'home'
-    })
-  }
-
   handlePostListPage = () => {
     this.setState({
       page: 'post-list'
@@ -71,7 +65,7 @@ class App extends Component {
         <div className="App">
           {
             this.state.page === 'login' ? (
-              <LoginForm onRegister={() => this.handleRegisterPage()} onLogin={() => this.handleLogin()} />
+              <LoginForm onRegister={() => this.handleRegisterPage()} />
             ) : this.state.page === 'register' ? (
               <RegisterForm />
             ) : this.state.page === 'post-list' ? (

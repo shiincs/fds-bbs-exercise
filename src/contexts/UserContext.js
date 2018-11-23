@@ -23,7 +23,9 @@ export default class UserProvider extends Component {
       // 인스턴스 객체 login을 찾아봐도 없기 때문에
       // prototype chain에 의해 prototype 객체의 login을 찾는다.
       // prototype 객체의 login이 존재하기 때문에 실행되는 것이다.
-      logout: this.logout
+      logout: this.logout,
+      onPostListPage: this.props.onPostListPage,
+      refreshUser: this.refreshUser
     }
   }
 
@@ -61,6 +63,7 @@ export default class UserProvider extends Component {
     // this.props.onPostListPage()
   }
 
+  // 현재 접속한 사용자의 id와 username 정보를 받아와서 유저 상태를 변경해주는 메소드
   refreshUser = async () => {
     const res2 = await api.get('/me')
     this.setState({
@@ -83,6 +86,7 @@ function getDisplayName(WrappedComponent) {
 // HOC
 function withUser(WrappedComponent) {
   function WithUser(props) {
+    console.log(props)
     return (
       <Consumer>
         {value => <WrappedComponent {...value} {...props} />}

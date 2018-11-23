@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import api from '../api'
+import { withUser } from '../contexts/UserContext';
 
-export default class RegisterForm extends Component {
+class RegisterForm extends Component {
 
   state = {
     // 현재 입력 필드에 입력된 사용자 이름&암호
@@ -32,6 +33,8 @@ export default class RegisterForm extends Component {
     }
     
     // TODO: 게시글 목록 보여주기
+    this.props.refreshUser()
+    this.props.onPostListPage()
 
   }
 
@@ -66,3 +69,5 @@ export default class RegisterForm extends Component {
     )
   }
 }
+
+export default withUser(RegisterForm)
