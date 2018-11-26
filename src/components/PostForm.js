@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styles from './PostForm.module.scss'
 
 export default class PostForm extends Component {
 
@@ -9,9 +10,10 @@ export default class PostForm extends Component {
         <form onSubmit = {(e) => this.props.onSubmit(e)}>
           <label>제목
             <input 
+              className = {styles.titleInput}
               type="text"
               name="title"
-              value={this.props.title}  
+              value={this.props.title}
                 /* PostForm Component가 NewPost Component에서 호출되면서 렌더링 될 때는
                 props를 넘겨받지 않기 때문에 this.props.title은 'undefined' 상태다.
                 form 요소에서 value property의 값이 'undefined' 또는 'null' 일때는
