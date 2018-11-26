@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import api from '../api'
 import { withUser } from '../contexts/UserContext';
+import {Form} from 'semantic-ui-react'
 
 class RegisterForm extends Component {
 
@@ -50,22 +51,24 @@ class RegisterForm extends Component {
   render() {
     const { username, password } = this.state
     return (
-      <form onSubmit = {e => this.handleSubmit(e)}>
+      <Form onSubmit = {e => this.handleSubmit(e)}>
         <h1>회원가입</h1>
-        <input
+        <Form.Input
+          label="사용자 이름"
           type="text"
           name="username"
           value={username}
           onChange = { e => this.handleFieldChange(e, 'username')}
         />
-        <input
+        <Form.Input
+          label="비밀번호"
           type="password"
           name="password"
           value={password}
           onChange = { e => this.handleFieldChange(e, 'password')}
         />
-        <button>회원가입</button>
-      </form>
+        <Form.Button>회원가입</Form.Button>
+      </Form>
     )
   }
 }
