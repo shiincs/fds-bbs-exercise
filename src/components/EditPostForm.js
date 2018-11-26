@@ -44,6 +44,7 @@ export default class EditPostForm extends Component {
     }
     return (
       <PostForm 
+        editing = {true}
         title = {title} 
         body = {body} 
         onSubmit = {e => this.handleSubmit(e)} 

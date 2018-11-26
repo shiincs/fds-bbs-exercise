@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
 import styles from './PostForm.module.scss'
+import classNames from 'classnames'
 
 export default class PostForm extends Component {
 
   render() {
+    const { editing } = this.props
+    const titleClass = classNames(styles.titleInput, {
+      [styles.editing]: editing
+    })
     return (
       <div>
         <h1>새 글 쓰기</h1>
         <form onSubmit = {(e) => this.props.onSubmit(e)}>
           <label>제목
             <input 
-              className = {styles.titleInput}
+              className = {titleClass}
               type="text"
               name="title"
               value={this.props.title}
