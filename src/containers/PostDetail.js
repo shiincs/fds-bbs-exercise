@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PostDetailView from '../components/PostDetailView'
 import api from '../api'
+import {UserConsumer, withUser} from '../contexts/UserContext'
 
-export default class PostDetail extends Component {
+class PostDetail extends Component {
 
   state = {
     title: '',
@@ -24,7 +25,7 @@ export default class PostDetail extends Component {
 
   render() {
     const {userId, title, body} = this.state
-    const {onEditPostFormPage, postId} = this.props
+    const {onEditPostFormPage, id, postId} = this.props
 
     return (
       <PostDetailView 
@@ -33,7 +34,10 @@ export default class PostDetail extends Component {
         postId = {postId}
         title = {title}
         body = {body}
+        id = {id}
       />
     )
   }
 }
+
+export default withUser(PostDetail)

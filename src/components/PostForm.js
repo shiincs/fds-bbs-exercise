@@ -2,8 +2,12 @@ import React, { Component } from 'react'
 import styles from './PostForm.module.scss'
 import classNames from 'classnames'
 
-export default class PostForm extends Component {
-
+class PostForm extends Component {
+  static defaultProps = {
+    // true가 주어지면, 편집 모드 스타일이 적용됨.
+    editing: false
+  }
+  
   render() {
     const { editing } = this.props
     const titleClass = classNames(styles.titleInput, {
@@ -41,3 +45,5 @@ export default class PostForm extends Component {
     )
   }
 }
+
+export default PostForm

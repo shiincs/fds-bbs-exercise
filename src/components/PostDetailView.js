@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import Layout from './Layout'
-import {UserConsumer, withUser} from '../contexts/UserContext'
 
-class PostDetailView extends Component {
+
+export default class PostDetailView extends Component {
 
   render() {
-    const {postId, onEditPostFormPage, id, userId, title, body} = this.props
+    const {postId, onEditPostFormPage, userId, title, body, id} = this.props
     
     return (
       <Layout title="게시물 상세보기">
@@ -18,5 +18,3 @@ class PostDetailView extends Component {
     )
   }
 }
-
-export default withUser(PostDetailView)
