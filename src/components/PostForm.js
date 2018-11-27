@@ -5,9 +5,11 @@ import classNames from 'classnames'
 class PostForm extends Component {
   static defaultProps = {
     // true가 주어지면, 편집 모드 스타일이 적용됨.
-    editing: false
+    editing: false,
+    // form 전송 시 호출되는 함수, title과 body를 인수로 받음
+    onSubmit: () => {}
   }
-  
+
   render() {
     const { editing } = this.props
     const titleClass = classNames(styles.titleInput, {
@@ -16,7 +18,12 @@ class PostForm extends Component {
     return (
       <div>
         <h1>새 글 쓰기</h1>
-        <form onSubmit = {(e) => this.props.onSubmit(e)}>
+        <form onSubmit = {(e) => {
+          e.preventDefault()
+          const title = e.target.elements.title.value
+          const body = e.target.elements.body.value
+          this.props.onSubmit(title, body)
+        }}>
           <label>제목
             <input 
               className = {titleClass}

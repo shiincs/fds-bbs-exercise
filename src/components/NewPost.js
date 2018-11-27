@@ -14,11 +14,7 @@ export default class NewPost extends Component {
     })
   }
 
-  handleSubmit = async e => {
-    e.preventDefault()
-    const title = e.target.elements.title.value
-    const body = e.target.elements.body.value
-
+  handleSubmit = async (title, body) => {
     const res = await api.post('/posts', {
       title,
       body
@@ -31,7 +27,7 @@ export default class NewPost extends Component {
   render() {
     return (
       <PostForm 
-        onSubmit = {e => this.handleSubmit(e)} 
+        onSubmit = {(title, body) => this.handleSubmit(title, body)}
         onFieldChange = {(e, name) => this.handleFieldChange(e, name)} 
       />
     )

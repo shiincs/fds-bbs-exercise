@@ -22,11 +22,7 @@ export default class EditPostForm extends Component {
     })
   }
 
-  handleSubmit = async e => {
-    e.preventDefault()
-    const title = e.target.elements.title.value
-    const body = e.target.elements.body.value
-
+  handleSubmit = async (title, body) => {
     await api.patch(`/posts/${this.props.postId}`, {
       title,
       body
@@ -45,9 +41,9 @@ export default class EditPostForm extends Component {
     return (
       <PostForm 
         editing = {true}
-        title = {title} 
+        title = {title}
         body = {body} 
-        onSubmit = {e => this.handleSubmit(e)} 
+        onSubmit = {(title, body) => this.handleSubmit(title, body)} 
         onFieldChange = {(e, name) => this.handleFieldChange(e, name)} 
       />
     )
