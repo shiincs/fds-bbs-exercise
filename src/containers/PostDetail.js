@@ -8,7 +8,8 @@ class PostDetail extends Component {
   state = {
     title: '',
     body: '',
-    userId: null
+    userId: null,
+    loading: true
   }
 
   componentDidMount = async () => {
@@ -19,12 +20,13 @@ class PostDetail extends Component {
     this.setState({
       title,
       body,
-      userId
+      userId,
+      loading: false
     })
   }
 
   render() {
-    const {userId, title, body} = this.state
+    const {userId, title, body, loading} = this.state
     const {onEditPostFormPage, id, postId} = this.props
 
     return (
@@ -35,6 +37,7 @@ class PostDetail extends Component {
         title = {title}
         body = {body}
         id = {id}
+        loading = {loading}
       />
     )
   }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Layout from './Layout'
+import withLoading from '../hoc/withLoading'
 
 
-export default class PostDetailView extends Component {
+class PostDetailView extends Component {
 
   render() {
     const {postId, onEditPostFormPage, userId, title, body, id} = this.props
@@ -18,3 +19,5 @@ export default class PostDetailView extends Component {
     )
   }
 }
+
+export default withLoading(PostDetailView)
