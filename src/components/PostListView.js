@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import './PostListView.scss';
+import { Helmet } from 'react-helmet';
 
 class PostListView extends Component {
   render() {
@@ -11,6 +12,9 @@ class PostListView extends Component {
 
     return (
       <React.Fragment>
+        <Helmet>
+          <title>게시물 목록</title>
+        </Helmet>
         <div className="PostList">
           <h1 className={titleClass}>게시물 목록</h1>
           <ul className="PostList__list">
