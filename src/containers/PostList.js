@@ -1,33 +1,33 @@
-import React, { Component } from 'react'
-import api from '../api'
-import PostListView from '../components/PostListView'
+import React, { Component } from 'react';
+import api from '../api';
+import PostListView from '../components/PostListView';
 
 class PostList extends Component {
   state = {
     posts: [],
-    loading: true
-  }
+    loading: true,
+  };
 
   componentDidMount = async () => {
-    const {data: posts} = await api.get('/posts')
+    const { data: posts } = await api.get('/posts');
     this.setState({
       posts,
-      loading: false
-    })
-  }
+      loading: false,
+    });
+  };
 
   render() {
-    const {posts, loading} = this.state
-    const {onPostDetailPage, onNewPost} = this.props
+    const { posts, loading } = this.state;
+    const { onPostDetailPage, onNewPost } = this.props;
     return (
-      <PostListView 
-        posts = {posts}
-        loading = {loading}
-        onPostDetailPage = {onPostDetailPage}
-        onNewPost = {onNewPost}
+      <PostListView
+        posts={posts}
+        loading={loading}
+        onPostDetailPage={onPostDetailPage}
+        onNewPost={onNewPost}
       />
-    )
+    );
   }
 }
 
-export default PostList
+export default PostList;

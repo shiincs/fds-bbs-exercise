@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import api from '../api'
+import React, { Component } from 'react';
+import api from '../api';
 
-const {Provider, Consumer} = React.createContext()
+const { Provider, Consumer } = React.createContext();
 
 export default class UserProvider extends Component {
   // class 내부에서의 메소드의 실행 순서
@@ -14,24 +14,24 @@ export default class UserProvider extends Component {
   // 2. 클래스 필드(arrow function 포함)
   // --> 클래스 필드는 UserProvider 클래스의 인스턴스 객체에 저장된다.
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       id: null,
       username: null,
-      login: this.login,  
+      login: this.login,
       // 여기에서의 this는 인스턴스 객체 login을 가리키지만,
       // 인스턴스 객체 login을 찾아봐도 없기 때문에
       // prototype chain에 의해 prototype 객체의 login을 찾는다.
       // prototype 객체의 login이 존재하기 때문에 실행되는 것이다.
       logout: this.logout,
       onPostListPage: this.props.onPostListPage,
-      refreshUser: this.refreshUser
-    }
+      refreshUser: this.refreshUser,
+    };
   }
 
   componentDidMount = async () => {
-    localStorage.getItem('token') && await this.refreshUser()
-  }
+    localStorage.getItem('token') && (await this.refreshUser());
+  };
 
   // login 함수에서는 username, password를 인자로 받는다.
   // 이 인자들이 form에서 생성됐는지, div에서 그냥 input에 때려 박았는지에 대해서
@@ -40,42 +40,40 @@ export default class UserProvider extends Component {
   login = async (username, password) => {
     const res = await api.post('/users/login', {
       username,
-      password
-    })
-    localStorage.setItem('token', res.data.token)
+      password,
+    });
+    localStorage.setItem('token', res.data.token);
 
-    await this.refreshUser()
+    await this.refreshUser();
 
     // 게시물 목록 보여주기
-    this.props.onPostListPage()
-  }
+    this.props.onPostListPage();
+  };
 
   logout = () => {
     // 로컬 스토리지에서 토큰 제거
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
     // 사용자 정보 캐시 초기화
     this.setState({
       id: null,
-      username: null
-    })
+      username: null,
+    });
 
     // 게시물 목록 보여주기 (여기에서는 필요 없는 상태)
     // this.props.onPostListPage()
-  }
+  };
 
   // 현재 접속한 사용자의 id와 username 정보를 받아와서 유저 상태를 변경해주는 메소드
   refreshUser = async () => {
-    const res2 = await api.get('/me')
+    const res2 = await api.get('/me');
     this.setState({
       id: res2.data.id,
-      username: res2.data.username
-    })
-  }
+      username: res2.data.username,
+    });
+  };
 
   render() {
-    return (
-      <Provider value={this.state}>{this.props.children}</Provider>
-    )
+    return <Provider value={this.state}>{this.props.children}</Provider>;
   }
 }
 
@@ -86,19 +84,13 @@ function getDisplayName(WrappedComponent) {
 // HOC
 function withUser(WrappedComponent) {
   function WithUser(props) {
-    console.log(props)
+    console.log(props);
     return (
-      <Consumer>
-        {value => <WrappedComponent {...value} {...props} />}
-      </Consumer>
-    )  
+      <Consumer>{value => <WrappedComponent {...value} {...props} />}</Consumer>
+    );
   }
-  WithUser.displayName = `withUser(${getDisplayName(WrappedComponent)})`
-  return WithUser
+  WithUser.displayName = `withUser(${getDisplayName(WrappedComponent)})`;
+  return WithUser;
 }
 
-export {
-  UserProvider,
-  Consumer as UserConsumer,
-  withUser
-}
+export { UserProvider, Consumer as UserConsumer, withUser };
