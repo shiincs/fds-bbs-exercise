@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
-import PostList from './components/PostList';
-import PostDetail from './containers/PostDetail';
+import PostListPage from './pages/PostListPage';
+import PostDetailPage from './pages/PostDetailPage';
 import NewPost from './components/NewPost';
 import EditPostForm from './components/EditPostForm';
 import {UserProvider} from './contexts/UserContext';
@@ -69,13 +69,13 @@ class App extends Component {
             ) : this.state.page === 'register' ? (
               <RegisterForm />
             ) : this.state.page === 'post-list' ? (
-              <PostList 
+              <PostListPage 
                 onPostDetailPage={(postId) => this.handlePostDetailPage(postId)} 
                 onNewPost={() => this.handleNewPost()} 
                 onLoginFormPage = {() => this.handleLoginFormPage()}
               />
             ) : this.state.page === 'post-detail' ? (
-              <PostDetail postId={this.state.postId} onEditPostFormPage={(postId) => this.handleEditPostFormPage(postId)} />
+              <PostDetailPage postId={this.state.postId} onEditPostFormPage={(postId) => this.handleEditPostFormPage(postId)} />
             ) : this.state.page === 'new-post' ? (
               <NewPost onPostDetailPage={(postId) => this.handlePostDetailPage(postId)} />
             ) : this.state.page === 'edit-post-form' ? (

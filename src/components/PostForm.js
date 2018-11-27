@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styles from './PostForm.module.scss'
 import classNames from 'classnames'
+import {Form} from 'semantic-ui-react'
 
 class PostForm extends Component {
   static defaultProps = {
@@ -18,14 +19,14 @@ class PostForm extends Component {
     return (
       <div>
         <h1>새 글 쓰기</h1>
-        <form onSubmit = {(e) => {
+        <Form onSubmit = {(e) => {
           e.preventDefault()
           const title = e.target.elements.title.value
           const body = e.target.elements.body.value
           this.props.onSubmit(title, body)
         }}>
-          <label>제목
-            <input 
+            <Form.Input
+              label = "제목"
               className = {titleClass}
               type="text"
               name="title"
@@ -36,18 +37,16 @@ class PostForm extends Component {
                 해당 form 요소가 제어되지 않는 컴포넌트 상태로 작동한다. */
               onChange = {(e) => this.props.onFieldChange(e, 'title')}
             />
-          </label>
-          <label>내용
-            <textarea 
+            <Form.TextArea
+              label = "내용"
               name="body" 
-              cols="30" 
-              rows="30" 
+              cols="20" 
+              rows="10" 
               value={this.props.body}
               onChange = {(e) => this.props.onFieldChange(e, 'body')}
-            ></textarea>
-          </label>
-          <button>작성</button>
-        </form>
+            ></Form.TextArea>
+          <Form.Button>작성</Form.Button>
+        </Form>
       </div>
     )
   }

@@ -1,34 +1,20 @@
 import React, { Component } from 'react';
-import api from '../api';
-import Layout from './Layout';
 import classNames from 'classnames'
-import './PostList.scss'
+import './PostListView.scss'
 
-export default class PostList extends Component {
-  state = {
-    posts: [],
-    loading: true
-  }
-
-  componentDidMount = async () => {
-    const {data: posts} = await api.get('/posts')
-    this.setState({
-      posts,
-      loading: false
-    })
-  }
+class PostListView extends Component {
 
   render() {
-    const { posts } = this.state
-    const { onPostDetailPage, onNewPost, onLoginFormPage } = this.props
+    const { posts, onPostDetailPage, onNewPost, loading } = this.props
     const titleClass = classNames(
       'PostList__title',
       {
-        'PostList__title--loading' : this.state.loading
+        'PostList__title--loading' : loading
       }
     )
+
     return (
-      <Layout title="게시물 목록" onLoginFormPage={onLoginFormPage}>
+      <React.Fragment>
         <div className="PostList">
           <h1 className={titleClass}>게시물 목록</h1>
           <ul className="PostList__list">
@@ -44,7 +30,9 @@ export default class PostList extends Component {
           </ul>
           <button onClick={() => onNewPost()}>새 글 쓰기</button>
         </div>
-      </Layout>
+      </React.Fragment>
     )
   }
 }
+
+export default PostListView
